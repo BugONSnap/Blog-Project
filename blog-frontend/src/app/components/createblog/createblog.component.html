@@ -1,0 +1,97 @@
+<app-navbar></app-navbar>
+<div class="relative h-screen w-full">
+  <button class="absolute top-0 left-10" (click)="cancelPost()">
+    <svg
+      class="w-6 h-6 text-[#b69f66]"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill=""
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 12h14M5 12l4-4m-4 4 4 4"
+      />
+    </svg>
+  </button>
+  <div
+    class="heading text-left ms-[100px] font-bold text-2xl m-5 text-white"
+  ></div>
+
+  <form
+    [formGroup]="blogForm"
+    (ngSubmit)="createBlog()"
+    class="editor relative mx-auto w-[80%] flex flex-col bg-[#b69f66] text-[#402905] border border-[#b69f66] p-8 shadow-lg rounded-md"
+  >
+    <div class="relative z-0 w-full mb-5 group">
+      <input
+        class="bg-gray-50 border border-gray-300 text-[#402905] text-sm rounded-lg focus:ring-[#402905] focus:border-[#402905] block w-full p-2.5"
+        id="title"
+        spellcheck="false"
+        placeholder="Title"
+        type="text"
+        formControlName="title"
+      />
+    </div>
+
+    <div
+      class="flex items-center flex-col-reverse justify-center w-full gap-2.5"
+    >
+      <input
+        id="image-upload"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        id="dropzone-file"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        id="file_input"
+        type="file"
+      />
+      <div *ngIf="imageUrl" class="w-1/2">
+        <img
+          [src]="imageUrl"
+          alt="Image Preview"
+          class="w-full h-64 object-cover object-center rounded-lg"
+        />
+      </div>
+      <div *ngIf="!imageUrl" class="w-1/2 rounded-lg">
+        <img
+          src="./assets/image(1).png"
+          class="w-full h-64 object-contain object-center rounded-lg"
+        />
+      </div>
+    </div>
+
+    <div class="w-full my-3.5 bg-white rounded-md">
+      <quill-editor
+        placeholder="Enter Text..."
+        formControlName="description"
+        [modules]="quillConfig"
+        (onBlur)="blur()"
+        (onSelectionChanged)="onSelectionChanged()"
+        class="w-full text-black"
+      >
+      </quill-editor>
+    </div>
+
+    <div class="buttons flex justify-end gap-2">
+      <button
+        type="submit"
+        [disabled]="!blogForm.valid"
+        class="flex text-sm bg-[#6b5428] rounded-md md:me-0 focus:ring-4 dark:focus:ring-gray-600 py-2 px-4 text-white hover:bg-[#76552b] font-medium disabled:opacity-50"
+      >
+        Post
+      </button>
+      <a
+        (click)="cancelPost()"
+        class="flex text-sm bg-white border text-black border-[#76552b] rounded-md md:me-0 focus:ring-4 dark:focus:ring-gray-600 py-2 px-4 hover:text-white hover:bg-[#76552b] font-medium cursor-pointer"
+      >
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>

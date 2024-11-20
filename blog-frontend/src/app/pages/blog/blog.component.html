@@ -1,0 +1,107 @@
+<app-navbar></app-navbar>
+<main class="pt-8 pb-16 lg:pb-24 max-h-screen antialiased">
+  <div
+    class="flex justify-between mx-auto w-full max-w-screen-xl relative bg-[#b69f66] py-20 rounded-md"
+  >
+    <!-- <div class="absolute w-full top-0 z-0 opacity-70">
+      <img
+        [src]="'http://localhost/NeonInsights/pdo/images/posts/' + blog.photo"
+        alt="Blog Image"
+        class="w-full h-56 rounded-md"
+      />
+    </div> -->
+
+    <article
+      class="text-justify mx-auto w-full max-w-4xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert relative z-10"
+    >
+      <header class="mb-4 lg:mb-6 not-format">
+        <div>
+          <address
+            class="flex items-center justify-between w-full mb-6 not-italic"
+          >
+            <div class="inline-flex items-center mr-3 text-sm text-[#402905]">
+              <img
+                class="mr-4 w-16 h-16 rounded-full"
+                src="./assets/user.png"
+              />
+              <div>
+                <a rel="author" class="text-4xl font-bold text-[#402905]">{{
+                  blog.username
+                }}</a>
+
+                <p class="text-base text-[#402905]">
+                  <time>{{ blog.created_at | date : "fullDate" }}</time>
+                </p>
+              </div>
+            </div>
+            <div class="right-48 top-5 flex gap-2">
+              <div class="z-50">
+                <ul class="py-1 text-sm text-gray-700 flex flex-row gap-1">
+                  <li
+                    (click)="editPost(blog.postid)"
+                    *ngIf="isAuthor"
+                    class="flex text-sm bg-[#6b5428] rounded-md md:me-0 focus:ring-4 dark:focus:ring-gray-600 py-4 px-4 text-white hover:bg-[#76552b] font-medium"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-pencil"
+                    >
+                      <path
+                        d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+                      />
+                      <path d="m15 5 4 4" />
+                    </svg>
+                  </li>
+                  <li
+                    (click)="deletePost(blog.id)"
+                    *ngIf="isAuthor"
+                    class="flex items-center\text-sm bg-white border text-black border-[#76552b] rounded-md md:me-0 focus:ring-4 dark:focus:ring-gray-600 py-4 px-4 hover:text-white hover:bg-[#76552b] font-medium"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-trash"
+                    >
+                      <path d="M3 6h18" />
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </address>
+          <h1
+            class="mb-4 text-3xl font-extrabold leading-tight lg:mb-6 lg:text-4xl text-[#402905]"
+          >
+            {{ blog.title }}
+          </h1>
+        </div>
+      </header>
+
+      <div class="ql-container ql-bubble" style="border-width: 0">
+        <div class="ql-editor" [innerHTML]="webContent"></div>
+      </div>
+
+      <ng-template #noContent>
+        <p>No content available.</p>
+      </ng-template>
+    </article>
+  </div>
+  <app-comment></app-comment>
+</main>

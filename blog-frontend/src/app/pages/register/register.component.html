@@ -1,0 +1,85 @@
+<app-navbar></app-navbar>
+<section class="">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+  >
+    <div
+      class="w-full bg-[#b69f66] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1
+          class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-[#402905] text-center"
+        >
+          Sign up to create a account
+        </h1>
+        <form
+          class="space-y-4 md:space-y-6"
+          [formGroup]="registerForm"
+          (ngSubmit)="registerUser()"
+        >
+          <div>
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-[#402905]"
+              >Your email</label
+            >
+            <input
+              type="email"
+              name="email"
+              id="email"
+              formControlName="email"
+              class="bg-gray-50 border border-[#6b5428] rounded-lg focus:ring-[#6b5428] focus:border-[#6b5428] block w-full p-2.5"
+              required=""
+            />
+          </div>
+          <div>
+            <label
+              for="username"
+              class="block mb-2 text-sm font-medium text-[#402905]"
+              >Username</label
+            >
+            <input
+              type="text"
+              name="username"
+              id="username"
+              formControlName="username"
+              class="bg-gray-50 border border-[#6b5428] rounded-lg focus:ring-[#6b5428] focus:border-[#6b5428] block w-full p-2.5"
+              required=""
+            />
+          </div>
+
+          <div>
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-[#402905]"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password"
+              id="password"
+              formControlName="password"
+              class="bg-gray-50 border border-[#6b5428] rounded-lg focus:ring-[#6b5428] focus:border-[#6b5428] block w-full p-2.5"
+              required=""
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full text-white bg-[#6b5428] hover:bg-[#6b5428] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            Sign up
+          </button>
+          <p class="text-sm font-light text-white">
+            Already have an account?
+            <a
+              routerLink="/login"
+              class="font-medium cursor-pointer text-primary-600 hover:underline hover:text-[#6b5428]"
+              >Sign in</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

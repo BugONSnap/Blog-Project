@@ -1,0 +1,119 @@
+<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 antialiased">
+  <div class="px-4 mx-auto max-w-screen-md">
+    <section class="not-format">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-lg lg:text-2xl font-bold text-[#402905]">Comments</h2>
+      </div>
+      @if (isAuthorize) {
+      <!-- display if user is authorize -->
+      <form class="mb-6" [formGroup]="commentForm" (ngSubmit)="submitComment()">
+        <div
+          class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-[#6b5428] dark:bg-gray-800 dark:border-gray-700"
+        >
+          <label for="comment" class="sr-only">Your comment</label>
+          <textarea
+            id="content"
+            formControlName="comment"
+            rows="6"
+            class="px-0 w-full text-sm text-black border-0 focus:ring-0 dark:placeholder-gray-400 dark:bg-gray-800"
+            placeholder="Write a comment..."
+            required
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="flex text-sm bg-[#6b5428] rounded-md md:me-0 focus:ring-4 dark:focus:ring-gray-600 py-2 px-4 text-white hover:bg-[#76552b] font-medium"
+        >
+          {{ isEditing ? "Save" : "Add" }} comment
+        </button>
+        <button
+          *ngIf="isEditing"
+          type="button"
+          (click)="cancelEdit()"
+          class="inline-flex items-center py-2.5 px-4 ml-2 text-xs font-medium text-center text-gray-600 bg-gray-200 rounded-lg focus:ring-4 focus:ring-gray-300 hover:bg-gray-300"
+        >
+          Cancel
+        </button>
+      </form>
+      }@else {
+      <!-- display if user is not authorize -->
+      <p class="text-rose-500 font-medium">
+        Please log in or sign up to post a comment.
+      </p>
+      }
+    </section>
+    <!-- display all comments here -->
+    <div *ngFor="let comment of comments; let i = index">
+      <div
+        class="p-6 mb-6 text-base border-b border-gray-200"
+        *ngIf="comment.postid === blogId"
+      >
+        <footer class="flex justify-between items-center mb-2">
+          <div class="flex items-center justify-between w-full">
+            <div class="flex items-start justify-center flex-col">
+              <p
+                class="inline-flex items-center mr-3 font-bold text-xl text-[#6b5428]"
+              >
+                <img
+                  class="mr-2 w-6 h-6 rounded-full"
+                  src="./../../../assets/user.png"
+                />{{ comment.username }}
+              </p>
+              <p class="text-sm text-[#6b5428] ms-8">
+                <time pubdate>{{
+                  comment.created_at | date : "fullDate"
+                }}</time>
+              </p>
+            </div>
+            <!-- <div class="relative">
+              <button
+                id="dropdown-button-{{ i }}"
+                (click)="toggleDropdown(i)"
+                class="text-white"
+                [ngClass]="{
+                  hidden: comment.userid != userId || isDropdownOpen[i]
+                }"
+              >
+                <svg
+                  class="w-4 h-4"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 16 3"
+                >
+                  <path
+                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"
+                  />
+                </svg>
+                <span class="sr-only">Comment settings</span>
+              </button>
+              <div
+                id="dropdown-menu-{{ i }}"
+                *ngIf="isDropdownOpen[i]"
+                class="absolute right-6 -top-3.5 z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+              >
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+                  <li
+                    (click)="editComment(comment)"
+                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Edit
+                  </li>
+                  <li
+                    (click)="deleteComment(comment.id)"
+                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Delete
+                  </li>
+                </ul>
+              </div>
+            </div> -->
+          </div>
+        </footer>
+        <p class="text-[#6b5428] text-lg font-semibold">
+          {{ comment.comment }}
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

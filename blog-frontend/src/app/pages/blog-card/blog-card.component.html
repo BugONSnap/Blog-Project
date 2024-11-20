@@ -1,0 +1,104 @@
+<aside aria-label="Related articles" class="py-8 max-h-screen">
+  <div class="px-4 mx-auto max-w-screen-xl max-h-screen">
+    <div class="flex justify-between">
+      <h2 class="relative mb-2 text-2xl font-bold text-[#402905]">Explore</h2>
+      <!-- <div class="relative max-w-xl w-full hidden md:block right-40 mb-4">
+        <div
+          class="absolute start-0 top-3 flex items-center ps-3 pointer-events-none"
+        >
+          <svg
+            class="w-4 h-4 text-gray-500 dark:text-gray-400"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+          <span class="sr-only">Search icon</span>
+        </div>
+        <input
+          type="text"
+          id="search-navbar"
+          class="block w-full p-2 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Search..."
+          (input)="onSearch($event)"
+        />
+      </div> -->
+    </div>
+
+    <div
+      *ngIf="filteredBlogs && filteredBlogs.length > 0; else noBlogs"
+      class="pb-10"
+    >
+      <ul
+        class="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8"
+      >
+        <li
+          *ngFor="let blog of filteredBlogs"
+          class="relative flex flex-col sm:flex-row xl:flex-col items-start bg-[#b69f66] px-4 py-6 rounded-md hover:shadow-md"
+        >
+          <div class="order-1 sm:ml-6 xl:ml-0">
+            <h3 class="mb-1 text-white font-semibold">
+              <span class="mb-1 block text-sm leading-6 text-white">{{
+                blog.created_at | date : "fullDate"
+              }}</span
+              ><span class="text-xl font-bold">{{
+                blog.title | titlecase
+              }}</span>
+            </h3>
+            <div class="text-sm text-white">
+              Author: <span class="font-semibold">{{ blog.username }}</span>
+            </div>
+            <button
+              (click)="goToBlog(blog.postid)"
+              class="inline-flex items-center text-sm bg-[#6b5428] mt-2.5 rounded-md md:me-0 focus:ring-4 dark:focus:ring-gray-600 py-2 px-4 text-white hover:bg-[#76552b] font-medium"
+            >
+              See Blog
+              <svg
+                class="overflow-visible ml-3 text-slate-300 group-hover:text-slate-400"
+                width="3"
+                height="6"
+                viewBox="0 0 3 6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M0 0L3 3L0 6"></path>
+              </svg>
+            </button>
+          </div>
+          <img
+            *ngIf="blog.photo"
+            [src]="'http://localhost/blogsphere/pdo/images/posts/' + blog.photo"
+            alt=""
+            class="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full"
+            width="1216"
+            height="640"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-template #noBlogs>
+    <section class="dark:bg-gray-900">
+      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        <div class="mx-auto max-w-screen-sm text-center">
+          <h1
+            class="mb-4 text-xl tracking-tight font-extrabold text-primary-600 dark:text-primary-500"
+          >
+            Oops! No Blogs Yet
+          </h1>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+</aside>
